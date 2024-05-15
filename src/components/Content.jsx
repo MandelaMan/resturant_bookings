@@ -75,7 +75,8 @@ const Content = () => {
   const [date, setDate] = useState(new Date())
 
   const [filters, setFilters] = useState({
-    date: null || moment(date).format('DD.MM.YYYY'),
+    // date: null || moment(date).format('DD.MM.YYYY'),
+    date: null,
     status: null,
     shift: null,
     area: null,
@@ -102,6 +103,7 @@ const Content = () => {
     }, 1000);
   }
 
+
   const handleSorting = (column) => {
     setSort({
       key: column.key,
@@ -118,14 +120,23 @@ const Content = () => {
   }
 
   const searchTermChanged = (e) => {
-    const { value } = e.target;    
+    const { value } = e.target;   
+    
+    const searchQuery = value.toLowerCase()
+
+    setFilters({
+      date: null,
+      status: null,
+      shift: null,
+      area: null,
+    })
 
     const keys = ["firstName","lastName"]
 
     let searchResults = reservations;
 
     searchResults = 
-    reservations.filter((reservation) => keys.some((key) => reservation.customer[key].toLowerCase().includes(value)))
+    reservations.filter((reservation) => keys.some((key) => reservation.customer[key].toLowerCase().includes(searchQuery)))
       
     setBookings(searchResults);
   };
@@ -162,6 +173,13 @@ const Content = () => {
 
     return () => {
       document.removeEventListener("mousedown", handleClick);
+
+      setFilters({
+        date: null,
+        status: null,
+        shift: null,
+        area: null,
+      })
     };
     // eslint-disable-next-line
   } ,[]) 
@@ -190,7 +208,7 @@ const Content = () => {
         <div className='reservation_list'>       
             <div className='heading'>
               <h3>Reservation List</h3>
-              <button onClick={() => setIsFiltering(true)}><TfiFilter size={12}/>&nbsp;Filter</button>
+              <button onClick={() => setIsFiltering(true)}><TfiFilter size={12}/>&nbsp;Filters</button>        
             </div>  
             {loading ? <div className='loading'>
                   <p>Loading ...</p>
@@ -240,7 +258,10 @@ const Content = () => {
             <span>
               <TfiFilter size={12}/>&nbsp;Filter Options
             </span>
-            <button onClick={() => setIsFiltering(false)}><TfiClose size={15} /></button>
+            <button onClick={() => {
+              getReservations();
+              setIsFiltering(false);
+            }}><TfiClose size={15} /></button>
           </h3>
           <div className='labels'>
             <Calendar onChange={onChange} value={date}/>
@@ -351,7 +372,22 @@ const Content = () => {
                 area: null,
               });
             }}>Reset all</button>
-            <button onClick={() => applyfilters()}>Apply Filters</button>
+            {Object.values(filters).every(value => value === null) ? 
+              <button onClick={() => {
+                setFilters({
+                  date: null,
+                  status: null,
+                  shift: null,
+                  area: null,
+                });
+
+                setIsFiltering(false);
+
+                getReservations()
+              }}>View All Bookings</button> 
+              : 
+              <button onClick={() => applyfilters()}>Apply Filters</button>
+            }            
           </div>
         </div>   
       </div>   
