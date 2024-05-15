@@ -12,6 +12,7 @@ import sad from "../assets/no-bookings.png"
 const Content = () => {
   const node = useRef();
 
+  // Intialization of header elements to be used when sorting and data display
   const th_columns = [
     {
       id: 1,
@@ -180,6 +181,8 @@ const Content = () => {
     })
   }
 
+  
+  // Handles fetching of bookings would be replaced with an API call
   const getReservations = async () => {
     try{
       setBookings(reservations)
@@ -189,6 +192,7 @@ const Content = () => {
     }
   } 
 
+  // Function to help with the opening and closing of the modal
   const handleClick = (e) => {
     if (!node.current.contains(e.target)) {
       setIsFiltering(false);
@@ -196,6 +200,7 @@ const Content = () => {
     }
   };
 
+  // Update state of key filter attributes 'shift, area, status'
   const handleChange = (e) => {
     const { name, checked, value } = e.target;
 
@@ -250,7 +255,7 @@ const Content = () => {
               <button onClick={() => setIsFiltering(true)}><TfiFilter size={12}/>&nbsp;Filters</button>        
             </div>  
             {loading ? <div className='loading'>
-                  <p>Loading ...</p>
+                <p>Loading ...</p>
               </div>
              : <>
                 {bookings.length > 0 ? <table className="table table-striped">
