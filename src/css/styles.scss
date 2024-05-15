@@ -212,6 +212,16 @@ button:focus {
             width: 150px;
             height: 150px;
           }
+
+          button {
+            margin-top: 10px;
+            font-size: 1em;
+            border: 0 none;
+            cursor: pointer;
+            font-weight: bold;
+            color: #825bff;
+            background-color: #fff;
+          }
         }
       }
 
@@ -231,7 +241,6 @@ button:focus {
           cursor: pointer;
           background-color: transparent;
           border: 1px solid #a4a4a4;
-          float: right;
         }
       }
     }
@@ -316,7 +325,7 @@ button:focus {
           padding: 8px 10px;
           border-radius: 8px;
 
-          &:first-child {
+          &.default {
             border: 1px solid #a4a4a4;
             cursor: pointer;
             font-weight: bold;
@@ -324,7 +333,15 @@ button:focus {
             background-color: #fff;
           }
 
-          &:last-child {
+          &.bookings {
+            border: 1px solid #825bff;
+            cursor: pointer;
+            font-weight: bold;
+            color: #825bff;
+            background-color: #fff;
+          }
+
+          &.filter {
             border: 0 none;
             cursor: pointer;
             font-weight: bold;

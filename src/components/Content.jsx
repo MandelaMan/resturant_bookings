@@ -103,6 +103,21 @@ const Content = () => {
     }, 1000);
   }
 
+  const clearFilters = (showReservations = false) => {
+    setDate(new Date())
+
+    setFilters({
+      date: null,
+      status: null,
+      shift: null,
+      area: null,
+    });
+
+    if(showReservations){
+      getReservations(); 
+    }    
+  }
+
 
   const handleSorting = (column) => {
     setSort({
@@ -161,9 +176,18 @@ const Content = () => {
 
   const handleClick = (e) => {
     if (!node.current.contains(e.target)) {
-      setIsFiltering(false)
+      setIsFiltering(false);
       return;
     }
+  };
+
+  const handleChange = (e) => {
+    const { name, checked, value } = e.target;
+
+    setFilters(prevFilters => ({
+      ...prevFilters,
+      [name]: checked ? value : null, 
+    }));
   };
     
   useEffect(() => {               
@@ -247,7 +271,16 @@ const Content = () => {
                 </tbody>
               </table> : 
               <div className='loading'>
-                <p><img src={sad} /><br/>No bookings are available</p>              
+                <p>
+                  <img src={sad} /><br/>
+                  No bookings are available
+                  <br/><br/>
+                  <button className='default' onClick={() => {
+                      clearFilters(true)
+                    }}>
+                    Clear All Filters
+                  </button> 
+                </p>        
               </div>}
              </>}       
         </div>      
@@ -271,33 +304,49 @@ const Content = () => {
             <ul className='sub_labels'>
               <li>
                 <label>
-                  <input type="checkbox" name="status" checked={filters.status === "SEATED" ? true : false} onChange={() => setFilters({...filters,
-                    status: "SEATED"
-                  })}/>
+                  <input
+                    type="checkbox"
+                    name="status"
+                    value="SEATED"
+                    checked={filters.status === "SEATED"}
+                    onChange={handleChange}
+                  />
                   &nbsp;&nbsp;Seated
                 </label>
               </li>
               <li>
                 <label>
-                  <input type="checkbox" name="status" checked={filters.status === "NOT CONFIRMED" ? true : false} onChange={() => setFilters({...filters,
-                    status: "NOT CONFIRMED"
-                  })}/>
+                  <input
+                    type="checkbox"
+                    name="status"
+                    value="NOT CONFIRMED"
+                    checked={filters.status === "NOT CONFIRMED"}
+                    onChange={handleChange}
+                  />
+                  &nbsp;&nbsp;Confirmed
+                </label>
+              </li>
+              <li>
+                <label>
+                   <input
+                    type="checkbox"
+                    name="status"
+                    value="CONFIRMED"
+                    checked={filters.status === "CONFIRMED"}
+                    onChange={handleChange}
+                  />
                   &nbsp;&nbsp;Not Confirmed
                 </label>
               </li>
               <li>
                 <label>
-                  <input type="checkbox" name="status" checked={filters.status === "CONFIRMED" ? true : false} onChange={() => setFilters({...filters,
-                    status: "CONFIRMED"
-                  })}/>
-                  &nbsp;&nbsp;Not Confirmed
-                </label>
-              </li>
-              <li>
-                <label>
-                  <input type="checkbox" name="status" checked={filters.status === "CHECKED OUT" ? true : false} onChange={() => setFilters({...filters,
-                    status: "CHECKED OUT"
-                  })}/>
+                   <input
+                    type="checkbox"
+                    name="status"
+                    value="CHECKED OUT"
+                    checked={filters.status === "CHECKED OUT"}
+                    onChange={handleChange}
+                  />
                   &nbsp;&nbsp;Checked Out
                 </label>
               </li>
@@ -308,25 +357,37 @@ const Content = () => {
             <ul className='sub_labels'>
               <li>
                 <label>
-                  <input type="checkbox" name="shift" checked={filters.shift === "BREAKFAST" ? true : false} onChange={() => setFilters({...filters,
-                    shift: "BREAKFAST"
-                  })}/>
+                   <input
+                    type="checkbox"
+                    name="shift"
+                    value="BREAKFAST"
+                    checked={filters.shift === "BREAKFAST"}
+                    onChange={handleChange}
+                  />
                   &nbsp;&nbsp;Breakfast
                 </label>
               </li>
               <li>
                  <label>
-                  <input type="checkbox" name="shift" checked={filters.shift === "DINNER" ? true : false} onChange={() => setFilters({...filters,
-                    shift: "DINNER"
-                  })}/>
+                  <input
+                    type="checkbox"
+                    name="shift"
+                    value="DINNER"
+                    checked={filters.shift === "DINNER"}
+                    onChange={handleChange}
+                  />
                   &nbsp;&nbsp;Dinner
                 </label>
               </li>              
               <li>
                 <label>
-                  <input type="checkbox" name="shift" checked={filters.shift === "LUNCH" ? true : false} onChange={() => setFilters({...filters,
-                    shift: "LUNCH"
-                  })}/>
+                  <input
+                    type="checkbox"
+                    name="shift"
+                    value="LUNCH"
+                    checked={filters.shift === "LUNCH"}
+                    onChange={handleChange}
+                  />
                   &nbsp;&nbsp;Lunch
                 </label>
               </li>
@@ -337,57 +398,49 @@ const Content = () => {
             <ul className='sub_labels'>
               <li>
                 <label>
-                  <input type="checkbox" name="area" checked={filters.area === "DINNING" ? true : false} onChange={() => setFilters({...filters,
-                    area: "DINNING"
-                  })}/>
+                  <input
+                    type="checkbox"
+                    name="area"
+                    value="DINNING"
+                    checked={filters.area === "DINNING"}
+                    onChange={handleChange}
+                  />
                   &nbsp;&nbsp;Dinning
                 </label>
               </li>
               <li>
                 <label>
-                  <input type="checkbox" name="area" checked={filters.area === "MAIN ROOM" ? true : false} onChange={() => setFilters({...filters,
-                    area: "MAIN ROOM"
-                  })}/>
+                  <input
+                    type="checkbox"
+                    name="area"
+                    value="MAIN ROOM"
+                    checked={filters.area === "MAIN ROOM"}
+                    onChange={handleChange}
+                  />
                   &nbsp;&nbsp;Main Room
                 </label>
               </li>
               <li>
                 <label>
-                  <input type="checkbox" name="area" checked={filters.area === "BAR" ? true : false} onChange={() => setFilters({...filters,
-                    area: "BAR"
-                  })}/>
+                  <input
+                    type="checkbox"
+                    name="area"
+                    value="BAR"
+                    checked={filters.area === "BAR"}
+                    onChange={handleChange}
+                  />
                   &nbsp;&nbsp;Bar
                 </label>
               </li>
             </ul>
           </div>
           <div className='filter_btns'>
-            <button onClick={() => {
-              setDate(new Date());
-
-              setFilters({
-                date: null,
-                status: null,
-                shift: null,
-                area: null,
-              });
-            }}>Reset all</button>
+            <button className='default' onClick={() => clearFilters()}>Reset all</button>
             {Object.values(filters).every(value => value === null) ? 
-              <button onClick={() => {
-                setFilters({
-                  date: null,
-                  status: null,
-                  shift: null,
-                  area: null,
-                });
-
-                setIsFiltering(false);
-
-                getReservations()
-              }}>View All Bookings</button> 
+              <button className='bookings' onClick={() => applyfilters()}>View all Bookings</button>  
               : 
-              <button onClick={() => applyfilters()}>Apply Filters</button>
-            }            
+              <button className='filter' onClick={() => applyfilters()}>Apply Filters</button>   
+            }                     
           </div>
         </div>   
       </div>   
