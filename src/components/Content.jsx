@@ -238,7 +238,7 @@ const Content = () => {
       <div className="view">
         <div className='header'>
           <h2>Table Reservations</h2> 
-          <form className='search'>          
+          <div className='search'>          
             <input type="text" 
               placeholder='Search by customer name' name="query" value={filters.search}
               onChange={(e) => {
@@ -249,7 +249,7 @@ const Content = () => {
             <button type='submit'>
               <Search size={22}/>
             </button>
-          </form> 
+          </div> 
           <div className='add_resv'> 
             <button>Add New Reservation</button>
           </div>       
