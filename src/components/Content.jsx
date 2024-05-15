@@ -56,24 +56,12 @@ const Content = () => {
 
   const { reservations } = mock_data
 
+  // Intialization of state to handle different states in the application
   const [bookings, setBookings] = useState([]);
-
   const [loading, setLoading] = useState(false)
-
   const [sort, setSort] = useState({ key: "start" , order : "asc"})
-
   const [isFiltering, setIsFiltering] = useState(false)
-  
-  const getHumanDate = (date_input) => {
-    const date = moment(date_input);
-
-    const formattedDate = date.format('Do MMMM, h:mma');
-
-    return formattedDate;
-  }; 
-
   const [date, setDate] = useState(new Date())
-
   const [filters, setFilters] = useState({
     // date: null || moment(date).format('DD.MM.YYYY'),
     date: null,
@@ -81,13 +69,25 @@ const Content = () => {
     shift: null,
     area: null,
   })
+  
+  // Function uses moment to convert dates to ahuman readable format
+  const getHumanDate = (date_input) => {
+    const date = moment(date_input);
 
+    const formattedDate = date.format('Do MMMM, h:mma');
+    // Date will appear as '2nd August, 3:00pm'
+
+    return formattedDate;
+  }; 
+
+  
+  // Function to handle filtering every time 'Apply Filters' button is clicked
   const applyfilters = () => {
-
     setLoading(true);
 
     let sorted = reservations;
-
+    
+    // Carries out filtering by checking that the default state value set is not null
     sorted = reservations.filter((reservation) => {
        return (!filters.shift || reservation.shift === filters.shift) &&
         (!filters.date || reservation.businessDate === filters.date) &&
@@ -95,7 +95,10 @@ const Content = () => {
         (!filters.status || reservation.status === filters.status);
     })
     
-    setBookings(sorted)         
+    // Set result to Bookings state after sorting is complete
+    setBookings(sorted)   
+    
+    // Removes the modal and hides the filtering screen
     setIsFiltering(false)
 
     setTimeout(() => { 
@@ -103,6 +106,7 @@ const Content = () => {
     }, 1000);
   }
 
+  // Generic function to help reset the states of filters, date  
   const clearFilters = (showReservations = false) => {
     setDate(new Date())
 
@@ -112,33 +116,42 @@ const Content = () => {
       shift: null,
       area: null,
     });
-
+    
+    // if 'showReservations' is set to true call will be made to fetch reservations
     if(showReservations){
       getReservations(); 
     }    
   }
 
-
+  // Sorts the different columns by setting state
   const handleSorting = (column) => {
+
+    // Current column is passed and key and order values are extracted
     setSort({
       key: column.key,
       order: column.key === sort.key ? sort.order === 'desc' ? 'asc' : 'desc' : 'asc'
     })
   }
   
+  // Function to sort array based on order i.e. Ascending or Descending
   const sortedData = (dataArray) => {
     if(sort.order === "asc"){
+
+      // return array sorted in Ascending order
       return dataArray.sort((a,b) => (a[sort.key] > b[sort.key] ? 1 : -1))
     }
-
+     
+    // return array sorted in Descending order
     return dataArray.sort((a,b) => (a[sort.key] > b[sort.key] ? -1 : 1))
   }
 
+  // Function is invoked when search term changes
   const searchTermChanged = (e) => {
     const { value } = e.target;   
     
+    // Enusre value is in lowerCae
     const searchQuery = value.toLowerCase()
-
+    
     setFilters({
       date: null,
       status: null,
@@ -149,13 +162,15 @@ const Content = () => {
     const keys = ["firstName","lastName"]
 
     let searchResults = reservations;
-
+    
+    // Use the set keys to iterate through array and only search the 'firstName' and 'lastName' fields
     searchResults = 
     reservations.filter((reservation) => keys.some((key) => reservation.customer[key].toLowerCase().includes(searchQuery)))
       
     setBookings(searchResults);
   };
 
+  // Handles Calendar inputs
   const onChange = (date_input) => {
     setDate(date_input)
 

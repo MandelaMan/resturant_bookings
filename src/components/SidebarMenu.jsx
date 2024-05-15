@@ -1,5 +1,5 @@
 import logo from "../assets/logo.png"
-import { TfiHome, TfiBarChartAlt, TfiSettings, TfiLayers , TfiHelpAlt , TfiTruck , TfiGift , TfiWrite  } from "react-icons/tfi";
+import { TfiHome, TfiAgenda , TfiNotepad, TfiBarChartAlt, TfiSettings, TfiLayers , TfiHelpAlt , TfiTruck , TfiGift , TfiWrite  } from "react-icons/tfi";
 
 const SidebarMenu = () => {
   return (
@@ -11,11 +11,11 @@ const SidebarMenu = () => {
         <ul>
           <li><TfiHome size={15} style={{ marginBottom: "-1%" , fontWeight: 700}}/> Dasboard</li>
           <li><TfiBarChartAlt  size={16} style={{ marginBottom: "-1%" , fontWeight: 700}}/> Reports</li>
-          <li><TfiTruck size={15} style={{ marginBottom: "-1%" , fontWeight: 700}}/> Orders</li>
+          <li><TfiNotepad size={15} style={{ marginBottom: "-1%" , fontWeight: 700}}/> Orders</li>
           <li><TfiTruck size={15} style={{ marginBottom: "-1%" , fontWeight: 700}}/> Meals</li>
-          <li><TfiTruck size={15} style={{ marginBottom: "-1%" , fontWeight: 700}}/> Menu</li>
+          <li><TfiAgenda size={15} style={{ marginBottom: "-1%" , fontWeight: 700}}/> Menu</li>
           <li className="active"><TfiWrite size={15} style={{ marginBottom: "-1%" , fontWeight: 700}}/> Reservations</li>
-          <li><TfiGift  size={15} style={{ marginBottom: "0%" , fontWeight: 700}}/> Vouchers</li>
+          <li><TfiGift  size={15} style={{ marginBottom: "-0.5%" , fontWeight: 700}}/> Vouchers</li>
           <li><TfiTruck size={15} style={{ marginBottom: "-1%" , fontWeight: 700}}/> Suppliers</li>
         </ul>
         <ul>
