@@ -15,6 +15,11 @@ const Content = () => {
   // Intialization of header elements to be used when sorting and data display
   const th_columns = [
     {
+      id: 0,
+      key: "id",
+      label: "#",
+    },
+    {
       id: 1,
       key: "start",
       label: "Arrival Time",
@@ -278,7 +283,7 @@ const Content = () => {
                 <tbody>
                   {sortedData(bookings).map((r,i) => 
                     <tr key={i}>
-                      {/* <td>{r.id}</td> */}
+                      <td>{r.id}</td>
                       <td>{getHumanDate(r.start)}</td>
                       <td>{`${r.customer.firstName} ${r.customer.lastName}`}</td>
                       <td>{r.businessDate}</td>
