@@ -65,7 +65,7 @@ const Content = () => {
   // Intialization of state to handle different states in the application
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(false)
-  const [sort, setSort] = useState({ key: "start" , order : "asc"})
+  const [sort, setSort] = useState({ key: "id" , order : "asc"})
   const [isFiltering, setIsFiltering] = useState(false)
   const [date, setDate] = useState(new Date())
   const [filters, setFilters] = useState({
