@@ -17,6 +17,7 @@ select:focus,
 textarea:focus,
 button:focus {
   outline: none;
+  background-color: transparent;
 }
 
 .show {
