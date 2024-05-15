@@ -1,10 +1,10 @@
-# Resturant Booking Application
+# Restaurant Booking Application
 
 - Author: Nelson Omoro
 
 - Date: 15/05/2024
 
-- Description: This is a resturant booking application that allows users to book tables and view their bookings.
+- Description: This is a restaurant booking application that allows users to book tables and view their bookings.
 
 - The application uses dummy data stored in a json (utils/data.json) file to simulate reservationsand a GUI to display the bookings.
 
