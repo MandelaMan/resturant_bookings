@@ -460,7 +460,7 @@ const Content = () => {
             </ul>
           </div>
           <div className='filter_btns'>
-            <button className='default' onClick={() => clearFilters()}>Reset all</button>
+            <button className='default' onClick={() => clearFilters(true)}>Reset all</button>
             {Object.values(filters).every(value => value === null) ? 
               <button className='bookings' onClick={() => applyfilters()}>Back to Bookings</button>  
               : 
